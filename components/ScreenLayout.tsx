@@ -8,7 +8,7 @@ type ScreenLayoutProps = {
   contentContainerStyle?: ViewStyle;
 };
 
-export function ScreenLayout({
+function ScreenLayout({
   children,
   style,
   scrollable = true,
@@ -39,6 +39,8 @@ export function ScreenLayout({
     </SafeAreaView>
   );
 }
+
+export default ScreenLayout;
 
 const styles = StyleSheet.create({
   safeArea: {

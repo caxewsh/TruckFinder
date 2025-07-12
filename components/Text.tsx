@@ -10,7 +10,7 @@ type TextProps = RNTextProps & {
   style?: TextStyle;
 };
 
-export const Text = ({
+const Text = ({
   variant = 'body',
   color = colors.dark,
   style,
@@ -31,3 +31,5 @@ export const Text = ({
     </RNText>
   );
 };
+
+export default Text;

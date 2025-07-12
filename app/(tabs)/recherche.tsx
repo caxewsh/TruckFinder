@@ -1,7 +1,7 @@
 import { View, StyleSheet } from 'react-native';
 import { Stack } from 'expo-router';
-import { Text } from '../../components/Text';
-import { ScreenLayout } from '../../components/ScreenLayout';
+import Text from '../../components/Text';
+import ScreenLayout from '../../components/ScreenLayout';
 import { colors, spacing } from '../../theme';
 
 export default function RechercheScreen() {

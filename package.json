@@ -10,7 +10,7 @@
     "update:deps": "npx expo install --fix"
   },
   "dependencies": {
-    "expo": "~53.0.17",
+    "expo": "53.0.19",
     "expo-constants": "~17.1.7",
     "expo-linking": "~7.1.7",
     "expo-router": "~5.1.3",
