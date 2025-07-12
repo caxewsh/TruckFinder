@@ -1,10 +1,71 @@
 import { View, StyleSheet, Platform, StatusBar } from 'react-native';
 import { Stack } from 'expo-router';
-import { Text } from '../../components/Text';
-import { ScreenLayout } from '../../components/ScreenLayout';
-import { colors, spacing } from '../../theme';
+import ScreenLayout from '../../components/ScreenLayout';
+import { colors } from '../../theme';
+import { SearchBar } from '../../components/map/SearchBar';
+import { MapView } from '../../components/map/MapView';
+import { LocationButton } from '../../components/map/LocationButton';
+import { NearbyTrucksList } from '../../components/map/NearbyTrucksList';
+import { Truck } from '../../components/map/types';
+
+// Données factices pour les food trucks à proximité
+const MOCK_NEARBY_TRUCKS: Truck[] = [
+  {
+    id: 1,
+    name: 'Le Camion Gourmand',
+    cuisineType: 'Cuisine française',
+    distance: '0.8 km',
+    rating: 4.5,
+  },
+  {
+    id: 2,
+    name: 'Tacos Avenue',
+    cuisineType: 'Cuisine mexicaine',
+    distance: '1.2 km',
+    rating: 4.0,
+  },
+  {
+    id: 3,
+    name: 'Pasta Express',
+    cuisineType: 'Cuisine italienne',
+    distance: '1.5 km',
+    rating: 4.8,
+  },
+  {
+    id: 4,
+    name: 'Burger House',
+    cuisineType: 'Fast-food',
+    distance: '0.5 km',
+    rating: 4.2,
+  },
+];
 
 export default function CarteScreen() {
+  const handleSearchPress = () => {
+    // TODO: Implémenter la navigation vers l'écran de recherche
+    console.log('Search pressed');
+  };
+
+  const handleFilterPress = () => {
+    // TODO: Afficher les filtres
+    console.log('Filter pressed');
+  };
+
+  const handleLocationPress = () => {
+    // TODO: Centrer la carte sur la position actuelle
+    console.log('Location pressed');
+  };
+
+  const handleSeeAllPress = () => {
+    // TODO: Naviguer vers la liste complète des food trucks
+    console.log('See all pressed');
+  };
+
+  const handleTruckPress = (truck: Truck) => {
+    // TODO: Naviguer vers la page de détail du food truck
+    console.log('Truck pressed:', truck.name);
+  };
+
   return (
     <ScreenLayout scrollable={false}>
       <StatusBar barStyle="dark-content" />
@@ -16,7 +77,7 @@ export default function CarteScreen() {
             backgroundColor: colors.white,
           },
           Platform.OS === 'android' && { 
-            elevation: 0,
+            elevation: 1,
             borderBottomWidth: 1,
             borderBottomColor: colors.lightGray,
           },
@@ -34,29 +95,21 @@ export default function CarteScreen() {
       }} />
       
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Text variant="h1" style={styles.title}>Carte</Text>
-          <Text variant="body" style={styles.subtitle}>
-            Localisez les food trucks autour de vous
-          </Text>
+        <SearchBar 
+          onSearchPress={handleSearchPress}
+          onFilterPress={handleFilterPress}
+        />
+        
+        <View style={styles.mapWrapper}>
+          <MapView showPlaceholder={true} />
+          <LocationButton onPress={handleLocationPress} />
         </View>
         
-        <View style={styles.mapContainer}>
-          <View style={styles.mapPlaceholder}>
-            <Text style={styles.mapText}>Carte des food trucks</Text>
-            <Text style={styles.mapHint}>(Intégration de la carte à venir)</Text>
-          </View>
-          
-          {/* Bouton de localisation flottant */}
-          <View style={styles.locationButton}>
-            <Text style={styles.locationButtonText}>📍</Text>
-          </View>
-        </View>
-        
-        {/* Barre de recherche flottante */}
-        <View style={styles.searchBar}>
-          <Text style={styles.searchText}>Rechercher un food truck...</Text>
-        </View>
+        <NearbyTrucksList 
+          trucks={MOCK_NEARBY_TRUCKS}
+          onSeeAllPress={handleSeeAllPress}
+          onTruckPress={handleTruckPress}
+        />
       </View>
     </ScreenLayout>
   );
@@ -65,98 +118,9 @@ export default function CarteScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: '100%',
     backgroundColor: colors.white,
   },
-  header: {
-    paddingHorizontal: spacing.md,
-    paddingTop: spacing.md,
-    paddingBottom: spacing.sm,
-    backgroundColor: colors.white,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: '700',
-    color: colors.dark,
-    marginBottom: spacing.xs,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: colors.darkGray,
-    marginBottom: spacing.md,
-  },
-  mapContainer: {
-    flex: 1,
+  mapWrapper: {
     position: 'relative',
-  },
-  mapPlaceholder: {
-    flex: 1,
-    backgroundColor: '#f0f0f0',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 12,
-    margin: spacing.md,
-    marginTop: 0,
-    borderWidth: 1,
-    borderColor: '#e0e0e0',
-  },
-  mapText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: colors.dark,
-    marginBottom: spacing.xs,
-  },
-  mapHint: {
-    fontSize: 14,
-    color: colors.darkGray,
-    fontStyle: 'italic',
-  },
-  searchBar: {
-    position: 'absolute',
-    top: Platform.select({
-      ios: spacing.lg,
-      android: (StatusBar.currentHeight || 0) + spacing.sm,
-    }),
-    left: spacing.md,
-    right: spacing.md,
-    backgroundColor: colors.white,
-    borderRadius: 12,
-    padding: spacing.sm,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-      },
-      android: {
-        elevation: 3,
-      },
-    }),
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  searchText: {
-    color: colors.darkGray,
-    marginLeft: spacing.xs,
-  },
-  locationButton: {
-    position: 'absolute',
-    bottom: spacing.lg,
-    right: spacing.lg,
-    backgroundColor: colors.white,
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  locationButtonText: {
-    fontSize: 24,
   },
 });

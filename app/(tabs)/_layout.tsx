@@ -42,35 +42,35 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Accueil',
-          tabBarIcon: ({ color }) => <FontAwesome name="home" size={24} color={color} />,
+          tabBarIcon: ({ color }: { color: string }) => <FontAwesome name="home" size={24} color={color} />,
         }}
       />
       <Tabs.Screen
         name="recherche"
         options={{
           title: 'Recherche',
-          tabBarIcon: ({ color }) => <FontAwesome name="search" size={22} color={color} />,
+          tabBarIcon: ({ color }: { color: string }) => <FontAwesome name="search" size={22} color={color} />,
         }}
       />
       <Tabs.Screen
         name="carte"
         options={{
           title: 'Carte',
-          tabBarIcon: ({ color }) => <FontAwesome name="map" size={22} color={color} />,
+          tabBarIcon: ({ color }: { color: string }) => <FontAwesome name="map" size={22} color={color} />,
         }}
       />
       <Tabs.Screen
         name="favoris"
         options={{
           title: 'Favoris',
-          tabBarIcon: ({ color }) => <FontAwesome name="heart" size={22} color={color} />,
+          tabBarIcon: ({ color }: { color: string }) => <FontAwesome name="heart" size={22} color={color} />,
         }}
       />
       <Tabs.Screen
         name="profil"
         options={{
           title: 'Profil',
-          tabBarIcon: ({ color }) => <FontAwesome name="user" size={22} color={color} />,
+          tabBarIcon: ({ color }: { color: string }) => <FontAwesome name="user" size={22} color={color} />,
         }}
       />
     </Tabs>
