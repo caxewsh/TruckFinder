@@ -20,7 +20,7 @@ const FEATURED_ITEMS = [
 const NEARBY_TRUCKS: Truck[] = [
   {
     id: 1,
-    name: 'Le Camion Gourmand',
+    name: 'Mémé Patate',
     cuisineType: 'Cuisine française',
     distance: '0.8 km',
     rating: 4.5,
