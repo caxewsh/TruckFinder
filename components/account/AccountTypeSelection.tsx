@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+    backgroundColor: `${colors.primary}1A`, // 10% opacity of primary color
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 16,
