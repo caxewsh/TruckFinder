@@ -31,11 +31,11 @@ export default function TabLayout() {
           paddingHorizontal: 0, // Suppression du padding horizontal des labels
         },
         tabBarItemStyle: {
-          paddingVertical: 4,
+          paddingVertical: 2,
           paddingHorizontal: 2, // Réduction du padding horizontal des items
         },
         tabBarIconStyle: {
-          marginBottom: -4, // Ajustement de l'icône pour un meilleur alignement
+          marginBottom: -2, // Ajustement de l'icône pour un meilleur alignement
         },
       }}>
       <Tabs.Screen

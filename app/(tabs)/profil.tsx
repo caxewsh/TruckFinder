@@ -1,39 +1,56 @@
-import { View, StyleSheet, ScrollView, Platform } from 'react-native';
+import { useState } from 'react';
+import { View, StyleSheet, Platform } from 'react-native';
 import { Stack } from 'expo-router';
-import { FontAwesome } from '@expo/vector-icons';
 import ScreenLayout from '../../components/ScreenLayout';
-import Text from '../../components/Text';
-import { ProfileHeader } from '../../components/profile/ProfileHeader';
-import { ProfileSection } from '../../components/profile/ProfileSection';
-import { ProfileMenuItem } from '../../components/profile/ProfileMenuItem';
-import { LogoutButton } from '../../components/profile/LogoutButton';
+import { AccountTypeSelection } from '../../components/account/AccountTypeSelection';
+import { ClientProfile } from '../../components/profile/ClientProfile';
+import { OwnerProfile } from '../../components/profile/OwnerProfile';
 import { colors } from '../../theme';
 
+type AccountType = 'client' | 'owner' | null;
+
 export default function ProfilScreen() {
+  const [accountType, setAccountType] = useState<AccountType>(null);
+
+  const handleSelectAccountType = (type: 'client' | 'owner') => {
+    setAccountType(type);
+    // TODO: Save account type to storage when auth is implemented
+  };
+
+  const handleLogout = () => {
+    setAccountType(null);
+    // TODO: Clear auth state when implemented
+  };
+
   const handleEditPress = () => {
-    // TODO: Implémenter la logique d'édition de la photo de profil
+    // TODO: Implement profile picture edit logic
     console.log('Edit profile picture');
   };
 
   const handleEditProfilePress = () => {
-    // TODO: Naviguer vers l'écran d'édition du profil
+    // TODO: Navigate to edit profile screen
     console.log('Edit profile');
   };
 
-  const handleLogout = () => {
-    // TODO: Implémenter la déconnexion
-    console.log('Logout');
-  };
-
   const handleMenuPress = (item: string) => {
-    // TODO: Gérer la navigation en fonction de l'élément du menu
+    // TODO: Handle menu item press
     console.log('Menu item pressed:', item);
   };
 
+  // Show account type selection if not selected
+  if (!accountType) {
+    return (
+      <ScreenLayout scrollable={false}>
+        <AccountTypeSelection onSelectAccountType={handleSelectAccountType} />
+      </ScreenLayout>
+    );
+  }
+
+  // Show the appropriate profile based on account type
   return (
     <ScreenLayout scrollable={false}>
       <Stack.Screen options={{ 
-        title: 'Profil',
+        title: accountType === 'client' ? 'Mon Profil' : 'Mon Food Truck',
         headerStyle: {
           backgroundColor: colors.white,
           ...Platform.select({
@@ -56,83 +73,21 @@ export default function ProfilScreen() {
         },
       }} />
       
-      <ScrollView style={styles.container}>
-        <ProfileHeader 
-          name="John Doe"
-          email="john.doe@example.com"
-          onEditPress={handleEditPress}
-          onEditProfilePress={handleEditProfilePress}
+      {accountType === 'client' ? (
+        <ClientProfile 
+          onLogout={handleLogout}
+          onEditProfile={handleEditProfilePress}
+          onEditPicture={handleEditPress}
+          onMenuPress={handleMenuPress}
         />
-        
-        {/* Section Compte */}
-        <ProfileSection title="Compte">
-          <ProfileMenuItem
-            icon={<FontAwesome name="user" size={20} color={colors.primary} />}
-            title="Informations personnelles"
-            onPress={() => handleMenuPress('Informations personnelles')}
-          />
-          
-          <ProfileMenuItem
-            icon={<FontAwesome name="lock" size={20} color={colors.primary} />}
-            title="Sécurité"
-            onPress={() => handleMenuPress('Sécurité')}
-          />
-          
-          <ProfileMenuItem
-            icon={<FontAwesome name="bell" size={20} color={colors.primary} />}
-            title="Notifications"
-            onPress={() => handleMenuPress('Notifications')}
-          />
-        </ProfileSection>
-        
-        {/* Section Préférences */}
-        <ProfileSection title="Préférences">
-          <ProfileMenuItem
-            icon={<FontAwesome name="language" size={20} color={colors.primary} />}
-            title="Langue"
-            rightContent={
-              <Text variant="body" color="gray">Français</Text>
-            }
-            onPress={() => handleMenuPress('Langue')}
-          />
-          
-          <ProfileMenuItem
-            icon={<FontAwesome name="moon-o" size={20} color={colors.primary} />}
-            title="Thème"
-            rightContent={
-              <Text variant="body" color="gray">Système</Text>
-            }
-            onPress={() => handleMenuPress('Thème')}
-          />
-        </ProfileSection>
-        
-        {/* Section Aide & Support */}
-        <ProfileSection title="Aide & Support">
-          <ProfileMenuItem
-            icon={<FontAwesome name="question-circle" size={20} color={colors.primary} />}
-            title="Centre d'aide"
-            onPress={() => handleMenuPress('Centre d\'aide')}
-          />
-          
-          <ProfileMenuItem
-            icon={<FontAwesome name="envelope" size={20} color={colors.primary} />}
-            title="Nous contacter"
-            onPress={() => handleMenuPress('Nous contacter')}
-          />
-          
-          <ProfileMenuItem
-            icon={<FontAwesome name="info-circle" size={20} color={colors.primary} />}
-            title="À propos"
-            onPress={() => handleMenuPress('À propos')}
-          />
-        </ProfileSection>
-        
-        {/* Bouton de déconnexion */}
-        <LogoutButton 
-          onPress={handleLogout}
-          version="1.0.0"
+      ) : (
+        <OwnerProfile 
+          onLogout={handleLogout}
+          onEditProfile={handleEditProfilePress}
+          onEditPicture={handleEditPress}
+          onMenuPress={handleMenuPress}
         />
-      </ScrollView>
+      )}
     </ScreenLayout>
   );
 }

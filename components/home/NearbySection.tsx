@@ -41,7 +41,22 @@ export const NearbySection: React.FC<NearbySectionProps> = ({
             onPress={() => onTruckPress?.(truck)}
             activeOpacity={0.9}
           >
-            <View style={styles.nearbyItemContent} />
+            <View style={styles.nearbyItemContent}>
+              <Text variant="body" style={styles.truckName} numberOfLines={1}>
+                {truck.name}
+              </Text>
+              <Text variant="caption" style={styles.truckCuisine} numberOfLines={1}>
+                {truck.cuisineType}
+              </Text>
+              <View style={styles.truckInfo}>
+                <Text variant="caption" style={styles.truckDistance}>
+                  {truck.distance}
+                </Text>
+                <Text variant="caption" style={styles.truckRating}>
+                  ★ {truck.rating}
+                </Text>
+              </View>
+            </View>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -70,12 +85,37 @@ const styles = StyleSheet.create({
   nearbyItem: {
     width: 200,
     height: 120,
-    backgroundColor: colors.lightGray,
+    backgroundColor: colors.white,
     borderRadius: 12,
     marginRight: spacing.md,
     overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: colors.lightGray,
+    padding: spacing.md,
   },
   nearbyItemContent: {
     flex: 1,
+    justifyContent: 'space-between',
+  },
+  truckName: {
+    fontWeight: '600',
+    color: colors.dark,
+    marginBottom: spacing.xs,
+  },
+  truckCuisine: {
+    color: colors.gray,
+    marginBottom: spacing.sm,
+  },
+  truckInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  truckDistance: {
+    color: colors.gray,
+  },
+  truckRating: {
+    color: colors.primary,
+    fontWeight: '600',
   },
 });

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import Text from '../Text';
@@ -9,6 +9,7 @@ interface ProfileMenuItemProps {
   title: string;
   rightContent?: React.ReactNode;
   showArrow?: boolean;
+  badge?: string | number;
   onPress?: () => void;
 }
 
@@ -17,6 +18,7 @@ export const ProfileMenuItem: React.FC<ProfileMenuItemProps> = ({
   title,
   rightContent,
   showArrow = true,
+  badge,
   onPress,
 }) => {
   return (
@@ -35,6 +37,13 @@ export const ProfileMenuItem: React.FC<ProfileMenuItemProps> = ({
       </View>
       
       <View style={styles.menuRight}>
+        {badge && (
+          <View style={styles.badge}>
+            <Text variant="caption" style={styles.badgeText}>
+              {badge}
+            </Text>
+          </View>
+        )}
         {rightContent}
         {showArrow && (
           <FontAwesome 
@@ -78,5 +87,20 @@ const styles = StyleSheet.create({
   },
   menuArrow: {
     marginLeft: spacing.sm,
+  },
+  badge: {
+    backgroundColor: colors.primary,
+    borderRadius: 10,
+    minWidth: 20,
+    height: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: spacing.xs,
+    marginRight: spacing.sm,
+  },
+  badgeText: {
+    color: colors.white,
+    fontSize: 12,
+    fontWeight: 'bold',
   },
 });
