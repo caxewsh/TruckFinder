@@ -4,7 +4,7 @@ import ScreenLayout from '../../components/ScreenLayout';
 import { Header } from '../../components/home/Header';
 import { FeaturedSection } from '../../components/home/FeaturedSection';
 import { NearbySection } from '../../components/home/NearbySection';
-import { Truck } from './../../components/map/types';
+import { Truck } from '../../components/map/types';
 import { colors } from '../../theme';
 
 // Données factices pour la section "À la une"

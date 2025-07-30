@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import Text from '../Text';
 import { colors, spacing } from '../../theme';
-import { Truck } from '././types';
+import { Truck } from './types';
 
 interface TruckCardProps {
   truck: Truck;
